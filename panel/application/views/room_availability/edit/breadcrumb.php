@@ -1,7 +1,7 @@
 	<section class="content-header">
 		<h1>
-			Odalar
-			<small>Oda Listesi</small>
+			Kategoriler
+			<small>Kategori Listesi</small>
 		</h1>
 		<ol class="breadcrumb">
 			<li><a href="#"><i class="fa fa-dashboard"></i> Anasayfa</a></li>

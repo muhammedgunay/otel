@@ -1,14 +1,14 @@
 <?php
 
 
-class roomimage_model extends CI_Model
+class roomavailability_model extends CI_Model
 {
 
 	public function __construct(){
 		
 		parent::__construct();
 
-		$this-> table= "room_image";
+		$this-> table= "room_availability";
 	}
 
 
@@ -35,7 +35,7 @@ class roomimage_model extends CI_Model
 
 	}
 
-//o anki verinin id sini alıyor
+
 	public function get($where=array()){
 
 		$row = $this->db->where($where)->get($this->table)->row();

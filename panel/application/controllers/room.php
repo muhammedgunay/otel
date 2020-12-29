@@ -76,7 +76,15 @@ class Room extends CI_Controller {
 	public function edit($id){
 
 		$data = array(
-			"title" => $this->input->post("title")
+			"room_code" => $this->input->post("room_code"),
+			"title" => $this->input->post("title"),
+			"detail" => $this->input->post("detail"),
+			"size" => $this->input->post("size"),
+			"default_price" => $this->input->post("default_price"),
+			"room_type_id" => $this->input->post("room_type_id"),
+			"room_capacity" => $this->input->post("room_capacity")
+			//"room_properties" => $this->input->post("room_properties"),
+			//"room_extra_services" => $this->input->post("room_extra_services")
 		);
 
 		$update = $this->room_model->update(
@@ -203,7 +211,7 @@ class Room extends CI_Controller {
 
 		$this->load->library('upload', $config);
 
-//		if(!file_exists(FCPATH)){}
+
 
 		if ( ! $this->upload->do_upload('file'))
 		{
@@ -235,4 +243,68 @@ class Room extends CI_Controller {
 		
 
 	}
+
+	public function deleteImage($id){
+
+		$image = $this->roomimage_model->get(array("id" => $id));
+
+		$file_name = FCPATH ."uploads/$image->img_id";
+
+		if(unlink($file_name)){
+
+			$delete = $this->roomimage_model->delete(array("id"	=> $id));
+
+			if($delete){
+
+				redirect("room/imageUploadPage/$image->room_id");
+
+			}
+		}
+
+
+	}
+
+
+	public function newAvailabilityPage($room_id){
+
+
+
+		$viewData =  new stdClass();
+		$viewData->room_id = $room_id;
+
+
+		$this->load->view("new_roomavailability", $viewData);
+
+	}
+
+	public function addNewAvailability($room_id){
+
+		
+
+		$date = explode("-", $this->input->post("availability_date"));
+
+		$availability_date = explode("-", $this->input->post("availability_date"));
+		$startDateArr  = explode("/", $availability_date[0]);
+		$finishDateArr = explode("/",$availability_date[1]);
+
+		$startDateStr  = trim($startDateArr[2]) . "-" . trim($startDateArr[0]) . "-" . trim($startDateArr[1]);
+		$finishDateStr = trim($finishDateArr[2]) . "-" . trim($finishDateArr[0]) . "-" . trim($finishDateArr[1]);
+
+		$startDate  = new DateTime($startDateStr);
+		$finishDate = new DateTime(date("Y-m-d", strtotime("1 day" ,strtotime($finishDateStr))));
+
+		$interval = DateInterval::createFromDateString("1 day");
+
+		$period = new DatePeriod($startDate, $interval, $finishDate);
+		
+
+		foreach ($period as $date){
+
+
+		echo $date->format("Y-m-d")."<br>";
+
+		}
+
+	}
+
 }

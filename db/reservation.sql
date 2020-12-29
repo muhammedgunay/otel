@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1:3306
--- Üretim Zamanı: 28 Ara 2020, 11:04:50
+-- Üretim Zamanı: 29 Ara 2020, 11:21:38
 -- Sunucu sürümü: 5.7.31
 -- PHP Sürümü: 7.3.21
 
@@ -81,15 +81,31 @@ CREATE TABLE IF NOT EXISTS `room` (
   `room_properties` varchar(500) COLLATE utf8_turkish_ci DEFAULT NULL,
   `room_extra_services` varchar(500) COLLATE utf8_turkish_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
 
 --
 -- Tablo döküm verisi `room`
 --
 
 INSERT INTO `room` (`id`, `title`, `detail`, `size`, `room_code`, `default_price`, `room_type_id`, `bed_type`, `bed_count`, `room_capacity`, `isActive`, `rank`, `room_properties`, `room_extra_services`) VALUES
-(4, 'asdfgh', 'werdtfyguıhojlş', '100m2', '101', 17, 8, NULL, NULL, 5, 1, 0, '5', 'Washington'),
-(5, 'oda', '<p>sdfgdh</p>\r\n', '100m2', '202', 17, 10, NULL, NULL, 8, 0, 1, '4;5', 'Alaska;Delaware');
+(6, 'yok', '', '', '404', 0, 6, NULL, NULL, 1, 1, 2, NULL, NULL),
+(4, 'asdfgh', 'werdtfyguıhojlş', '100m2', '101', 17, 8, NULL, NULL, 5, 1, 1, '5', 'Washington'),
+(5, 'odam', '', '100m2', '202', 25, 6, NULL, NULL, 1, 0, 0, '4;5', 'Alaska;Delaware');
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `room_availability`
+--
+
+DROP TABLE IF EXISTS `room_availability`;
+CREATE TABLE IF NOT EXISTS `room_availability` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `daily_date` date DEFAULT NULL,
+  `room_id` int(11) DEFAULT NULL,
+  `status` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
 
 -- --------------------------------------------------------
 
@@ -122,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `room_image` (
   `rank` int(11) DEFAULT NULL,
   `isCover` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
 
 --
 -- Tablo döküm verisi `room_image`
@@ -132,7 +148,7 @@ INSERT INTO `room_image` (`id`, `img_id`, `room_id`, `isActive`, `rank`, `isCove
 (1, '50dedc13c2aa999c04c40b121b2cc9f2.jpg', 4, 0, 0, NULL),
 (2, '4178794d9fc359251f48f61ff07aacac.jpg', 5, 0, 0, 1),
 (3, '41f107ecbe1681688c8e748a40109fec.jpg', 5, 1, 1, 0),
-(4, '6dabd75fe19a74426b47750337e2e699.jpg', 5, 0, 2, 0),
+(6, 'bcd2c0c43454ab8e248da3484b5c0ca0.jpg', 5, 1, 0, NULL),
 (5, '6e86f50813ebd83ad9b01a57802b98e7.jpg', 4, 1, 0, NULL);
 
 -- --------------------------------------------------------
@@ -156,9 +172,7 @@ CREATE TABLE IF NOT EXISTS `room_properties` (
 --
 
 INSERT INTO `room_properties` (`id`, `title`, `icon`, `rank`, `isActive`) VALUES
-(1, 'asdfg', 'sdfdghj', 2, 1),
-(2, 'hasan ali kaldırım', NULL, 0, NULL),
-(4, 'asdfgh', NULL, 3, 1),
+(1, 'asdfg', 'sdfdghj', 2, 0),
 (5, 'deneme', NULL, 1, 0),
 (6, 'neresi', NULL, 4, 1);
 
@@ -185,7 +199,6 @@ INSERT INTO `room_type` (`id`, `title`, `rank`, `isActive`) VALUES
 (6, 'fdfdfd', 3, 1),
 (7, 'asdfgh', 2, 1),
 (8, 'mehmet hakim', 5, 1),
-(9, 'hasan ali', 4, 0),
 (10, 'hayati ttt', 1, 1),
 (11, 'hayati', 0, 0);
 COMMIT;

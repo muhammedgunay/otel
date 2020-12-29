@@ -57,6 +57,9 @@
                                         <a href="<?php echo base_url("room/imageUploadPage/$row->id"); ?>">
                                             <i class="fa fa-image" style="font-size:16px;"></i>
                                         </a> 
+										<a href="<?php echo base_url("room/newAvailabilityPage/$row->id"); ?>">
+                                            <i class="fa fa-calendar" style="font-size:16px;"></i>
+                                        </a>
 
 										</td>
 
@@ -72,4 +75,4 @@
 				</div>
 
 			</div>
-		</section>
+</section>
